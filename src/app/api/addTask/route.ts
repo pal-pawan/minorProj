@@ -3,7 +3,7 @@ import dbconnect from "@/lib/dbConnect";
 import { TaskModel } from "@/model/Task";
 
 export async function POST(request: NextApiRequest, response: NextApiResponse) {
-    const { taskTitle, taskDescription, taskStatus } = request.body;
+    const {title, status } = request.body;
     try {
         await dbconnect();
         // const task = await TaskModel.create({
@@ -12,9 +12,8 @@ export async function POST(request: NextApiRequest, response: NextApiResponse) {
         //     status: taskStatus
         // });
         const task = new TaskModel({
-            title: taskTitle,
-            description: taskDescription,
-            status: taskStatus,
+            title: title,
+            status: status,
             createdAt: Date.now()
         });
         await task.save();
@@ -22,7 +21,7 @@ export async function POST(request: NextApiRequest, response: NextApiResponse) {
             response.json({
                 message: "Task created successfully",
                 createdTask: task,
-                createdAt: Date.now()
+                createdAt: Date.now(),
             })
         );
     } catch (error) {

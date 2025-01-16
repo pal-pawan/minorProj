@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+require('dotenv').config();
 
 type ConnectionObject = {
     isConnected?: number;
@@ -8,12 +9,12 @@ const connection:ConnectionObject = {};
 
 async function dbconnect():Promise<void> {
     if(connection.isConnected){
-        console.log("already connected to database")
+        console.log("already connected to database");
         return;
     }
     else {
         try {
-            const dbConnection = await mongoose.connect(process.env.MONGODB_URI || "", {});
+            const dbConnection = await mongoose.connect(process.env.MONGODB_URI as string || "mongodb+srv://imurron:pqn101pal@cluster0.lotd3.mongodb.net/test1",{});
             connection.isConnected = dbConnection.connections[0].readyState;
             console.log("connected to database successfully");
         } catch (error) {
