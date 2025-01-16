@@ -35,18 +35,18 @@ const page = () => {
       console.log(task, status);
       const taskData = await axios.post('/api/addTask', { task, status });
       console.log(taskData);
-    } catch (error) {
       toast({
         description:`Failed to add ${task}`,
         variant:'destructive'
-      })
+      });
+    } catch (error) {
       console.log("An occured adding task", error);
 
     }
     finally { setIsSubmitting(false);
       toast({
         description:`Task "${task}" added successfully`
-      })
+      });
      }
   }
 
@@ -60,10 +60,6 @@ const page = () => {
     }
   })
   
-  // function onSubmit(data:z.infer<typeof taskValidationSchema>){
-  //   console.log("Submit handler called", data);
-  // }
-
   return (
     <>
       <div className='w-full h-screen flex items-center justify-center bg-black'>
