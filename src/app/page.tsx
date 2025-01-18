@@ -42,10 +42,9 @@ const page = () => {
       toast({
         description:`Failed to add task  ${task}`,
         variant:'destructive'
-      })
-      console.log("An occured adding task", error);
+      });
+    } 
 
-    }
     finally { setIsSubmitting(false);
      }
   }
