@@ -28,30 +28,29 @@ const page = () => {
     setIsSubmitting(true);
     setCreatedAt(Date.now().toString());
     setTask(data.task);
+    console.log(data.task)
     toast({
       description:"Adding task..."
     })
     try {
-      console.log(task, status);
       const taskData = await axios.post('/api/addTask', { task, status });
       console.log(taskData);
+      toast({
+        description:`Task "${task}" added successfully`
+      })
     } catch (error) {
       toast({
-        description:`Failed to add ${task}`,
+        description:`Failed to add task  ${task}`,
         variant:'destructive'
       })
       console.log("An occured adding task", error);
 
     }
     finally { setIsSubmitting(false);
-      toast({
-        description:`Task "${task}" added successfully`
-      })
      }
   }
 
   // Implementing zod validations
-  
   
   const form = useForm({
     resolver: zodResolver(taskValidationSchema),
@@ -60,10 +59,6 @@ const page = () => {
     }
   })
   
-  // function onSubmit(data:z.infer<typeof taskValidationSchema>){
-  //   console.log("Submit handler called", data);
-  // }
-
   return (
     <>
       <div className='w-full h-screen flex items-center justify-center bg-black'>
@@ -77,7 +72,7 @@ const page = () => {
                   <>
                     <FormItem>
                       <FormControl>
-                        <Input placeholder='Task' required {...field} className='w-full' />
+                        <Input placeholder='Add Task here' required {...field} className='w-full' />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
